@@ -3,3 +3,5 @@ __pycache__/
 Scripts
 pyvenv.cfg
 Lib
+images/
+mnist_train_small.csv
