@@ -53,13 +53,15 @@ imshow('Contours overlaid on Bitwise NOT image', image2)
 print("Number of Contours found = " + str(len(contours)))
 print("Number of Contours found = " + str(len(contours2)))
 
+zeros = []
+
 for (i,c) in enumerate(contours2):
   x,y,w,h= cv2.boundingRect(c)  
   cropped_contour= og_image[y:y+h, x:x+w]
   digit_contour = cropped_contour.copy()
   #plt.imshow(cropped_contour)
   gray_contour = cv2.cvtColor(cropped_contour, cv2.COLOR_BGR2GRAY)
-  F = cv2.threshold(gray_contour, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+  _,th2 = cv2.threshold(gray_contour, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
   digits, hierarchy2 = cv2.findContours(th2, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
   #cv2.drawContours(cropped_contour, digits, 0, (0,255,0), thickness = 1)
   
@@ -71,5 +73,8 @@ for (i,c) in enumerate(contours2):
     image_name= "block_" + str(81-i) + ".jpg"
     cv2.imwrite(os.path.join('images/',image_name), digit_contour)
   else:
-    zeroes.append(81-i) 
-print(zeroes)
+    zeros.append(81-i) 
+#print(zeros)
+
+def return_zeros():
+  return zeros
